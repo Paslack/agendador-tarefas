@@ -1,4 +1,4 @@
-package com.phc.agendadortarefas.infra.client;
+package com.phc.agendadortarefas.infra.security.client;
 
 import com.phc.agendadortarefas.business.dto.UsuarioDTO;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "usuario", url = "${usuario.url}")
 public interface UsuarioClient {
 
-    @GetMapping
+    @GetMapping("/usuario")
     UsuarioDTO buscarUsuarioPorEmail(@RequestHeader("Authorization") String token,
                                      @RequestParam("email") String email);
 
