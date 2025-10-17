@@ -2,14 +2,11 @@ package com.phc.agendadortarefas.infra.security;
 
 
 import com.phc.agendadortarefas.business.dto.UsuarioDTO;
-import com.phc.agendadortarefas.infra.client.UsuarioClient;
+import com.phc.agendadortarefas.infra.security.client.UsuarioClient;
 import com.phc.agendadortarefas.infra.entity.Usuario;
 import com.phc.agendadortarefas.infra.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
