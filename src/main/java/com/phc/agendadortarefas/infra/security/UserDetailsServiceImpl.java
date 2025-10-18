@@ -3,8 +3,6 @@ package com.phc.agendadortarefas.infra.security;
 
 import com.phc.agendadortarefas.business.dto.UsuarioDTO;
 import com.phc.agendadortarefas.infra.security.client.UsuarioClient;
-import com.phc.agendadortarefas.infra.entity.Usuario;
-import com.phc.agendadortarefas.infra.repository.UsuarioRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -17,7 +15,7 @@ public class UserDetailsServiceImpl {
         this.usuarioClient = usuarioClient;
     }
 
-    public UserDetails loadUserByUsername(String token, String email) {
+    public UserDetails carregaDadosUsuario(String token, String email) {
 
         UsuarioDTO usuarioDTO = usuarioClient.buscarUsuarioPorEmail(token, email);
         return User
