@@ -15,12 +15,12 @@ public class UserDetailsServiceImpl {
         this.usuarioClient = usuarioClient;
     }
 
-    public UserDetails carregaDadosUsuario(String token, String email) {
-
-        UsuarioDTO usuarioDTO = usuarioClient.buscarUsuarioPorEmail(token, email);
+    public UserDetails carregaDadosUsuario(String email) {
+        // Token é adicionado automaticamente pelo FeignConfig
+        UsuarioDTO usuarioDTO = usuarioClient.buscarUsuarioPorEmail(email);
         return User
-                .withUsername(usuarioDTO.getEmail()) // Define o nome de usuário como o e-mail
-                .password(usuarioDTO.getSenha()) // Define a senha do usuário
-                .build(); // Constrói o objeto UserDetails
+                .withUsername(usuarioDTO.getEmail())
+                .password(usuarioDTO.getSenha())
+                .build();
     }
 }
