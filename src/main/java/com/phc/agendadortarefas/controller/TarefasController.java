@@ -2,6 +2,8 @@ package com.phc.agendadortarefas.controller;
 
 import com.phc.agendadortarefas.business.dto.TarefasDTO;
 import com.phc.agendadortarefas.business.service.TarefasService;
+import com.phc.agendadortarefas.infra.enums.StatusNotificacaoEnum;
+import com.phc.agendadortarefas.infra.exceptions.ResourceNotFoundException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,4 +38,23 @@ public class TarefasController {
         return ResponseEntity.ok(tarefasService.buscarTarefasPorEmail(token));
     }
 
+    @DeleteMapping
+    public ResponseEntity<Void> deletarTarefaPorId(@RequestParam("id") String id) {
+        try {
+            tarefasService.deleteTarefaPorId(id);
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException("Erro ao deletar tarefa por id " + e.getMessage());
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping
+    public ResponseEntity<TarefasDTO> alterarStatusTarefa(@RequestParam("status") StatusNotificacaoEnum status, @RequestParam("id") String idTarefa) {
+        return ResponseEntity.ok(tarefasService.alterarStatus(status, idTarefa));
+    }
+
+    @PutMapping
+    public ResponseEntity<TarefasDTO> updateDeTarefas(@RequestBody TarefasDTO tarefasDTO, @RequestParam("id") String id) {
+        return ResponseEntity.ok(tarefasService.updateTarefas(tarefasDTO, id));
+    }
 }
