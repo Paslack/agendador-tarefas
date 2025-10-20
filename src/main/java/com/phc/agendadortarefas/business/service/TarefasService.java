@@ -9,6 +9,7 @@ import com.phc.agendadortarefas.infra.security.JwtUtil;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class TarefasService {
@@ -33,5 +34,17 @@ public class TarefasService {
 
         return tarefasMapper.paraTarefaDTO(tarefasEntity);
     }
+
+    public List<TarefasDTO> buscarTarefasAgendadasPorPeriodo(LocalDateTime dataInicial, LocalDateTime dataFinal) {
+        List<TarefasEntity> byDataEventoBetween = tarefaRepository.findByDataEventoBetween(dataInicial, dataFinal);
+        return tarefasMapper.paraListaTarefasDTO(byDataEventoBetween);
+    }
+
+    public List<TarefasDTO> buscarTarefasPorEmail(String token) {
+        String email = jwtUtil.extractUsername(token.substring(7));
+        List<TarefasEntity> listTarefasEntity = tarefaRepository.findByEmailUsuario(email);
+        return tarefasMapper.paraListaTarefasDTO(listTarefasEntity);
+    }
+
 
 }
